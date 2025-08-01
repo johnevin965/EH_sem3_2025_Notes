@@ -1,0 +1,42 @@
+
+Assignment 10:Linux AI Help chat using Groq API
+Project Overview
+This project creates a simple AI-powered tool that translates Linux terminal commands into plain English. It aims to help beginners and cybersecurity learners understand complex commands quickly and clearly.
+ 
+Environment & Tools
+OS: Kali Linux
+Language: Python 3
+API: Groq (LLaMA3 model)
+Tools: Python virtual environment, flameshot for screenshots
+ 
+Implementation
+Set up a Python virtual environment inside a linux-ai-helper directory.
+Developed a Python script that sends user-input Linux commands to the Groq API and receives easy-to-understand explanations.
+Tested with commands like chmod +x file.sh and flameshot gui.
+Verified output with screenshots.
+ 
+PYTHON CODE:
+import requests
+API_URL = "https://api.groq.com/openai/v1/chat/completions"
+HEADERS = {
+  "Authorization": "Bearer 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"
+}
+def explain_command(cmd):
+  data = {
+      "model": "llama3-8b-8192",
+      "messages": [{"role": "user", "content": f"Explain this Linux command in plain English: {cmd}"}],
+      "temperature": 0.3 }
+  res = requests.post(API_URL, headers=HEADERS, json=data)
+  return res.json()['choices'][0]['message']['content']
+while True:
+  cmd = input("🔍 Enter a Linux command (or 'exit'): ")
+  if cmd.lower() == "exit": break
+  print("🧠", explain_command(cmd))
+
+Findings
+The tool successfully produced clear, beginner-friendly explanations for various Linux commands.
+The approach supports practical learning and cybersecurity education.
+Screenshots confirmed the accuracy and usability of the output.
+ 
+Conclusion
+The Linux AI Helper effectively simplifies command-line learning by bridging the gap between complex Linux syntax and user understanding using fast AI responses. It is a valuable tool for newcomers to Linux and cybersecurity students.
